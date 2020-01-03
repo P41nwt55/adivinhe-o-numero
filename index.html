@@ -29,25 +29,20 @@
         <h1>Jogo: Adivinhe o Número</h1>
         <p>Nós selecionamos um número aleatório entre 1 e 100. Veja se consegue adivinhar em 10 chances ou menos. Nós lhe diremos se seu palpite foi muito alto ou muito baixo.</p>
 
-        <div class="form"> <!-- Form do texto, input e botao-->
-
-            <label for="campoPalpite">Digite seu palpite: </label>
-            <input type="text" id="campoPalpite" class="campoPalpite">
-            <input type="submit" value="Enviar palpite" class="envioPalpite">
-
-        </div>
-        <div class="resultadoParas"> <!-- div status:estes p's dizem se está certo/errado, alto/baixo-->
-
-            <p class="palpite"></p>
-            <p class="ultimoResultado"></p>
-            <p class="baixoOuAlto"></p>
-
-        </div>
+       <div class="form">
+           <label for="campoPalpite">Digite seu Palpite: </label><input type="text" id="campoPalpite" class="campoPalpite">
+           <input type="submit" value="Enviar Palpite" class="envioPalpite">
+       </div>
+<div class="resultadoParas">
+  <p class="palpites"></p>
+  <p class="ultimoResultado"></p>
+  <p class="baixoOuAlto"></p>
+</div>
 
     </body>
     <script>
 
-        var numeroAleatorio = Math.floor(Math.random() * 100) + 1; //gera um numero aleatorio de 1 a 100
+        var numeroAleatorio= Math.floor(Math.random() * 100) + 1; //gera um numero aleatorio de 1 a 100
 
         var campoPalpite = document.querySelector('.campoPalpite'); //armazena cada numero inserido no input
         var envioPalpite = document.querySelector('.envioPalpite'); // botao que envia cada numero dentro ^
@@ -56,11 +51,11 @@
         var ultimoResultado = document.querySelector('.ultimoResultado');
         var baixoOuAlto = document.querySelector('.baixoOuAlto');
 
-        var contadorPalpites = 1; //contador dos palpites, se chegar a 10 avisa ao jogador que ele perdeu
+        var contagemPalpites = 1; //contador dos palpites, se chegar a 10 avisa ao jogador que ele perdeu
         var botaoReinicio;
 
         // funcoes do jogo
-        function conferePalpite() {
+        function conferePalpite(){
             var palpiteUsuario = Number(campoPalpite.value);
             if (contagemPalpites === 1) {
                 palpites.textContent = 'Palpites anteriores ';
@@ -83,12 +78,19 @@
                 if(palpiteUsuario < numeroAleatorio){
                     baixoOuAlto.textContent = 'Seu palpite está muito baixo!';
                     
+                } else if (palpiteUsuario > numeroAleatorio){
+                    baixoOuAlto.textContent = 'Seu palpite está muito alto';
                 }
+            
             }
-        }
 
+            contagemPalpites++;
+            campoPalpite.value = '';
+            campoPalpite.focus();
+            
+        }
     
-    
+        envioPalpite.addEventListener('click', conferePalpite);    
     
     </script>
 </html>
