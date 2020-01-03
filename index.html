@@ -12,10 +12,19 @@
             }
 
             body {
+                    
                     width: 50%;
                     max-width: 800px;
                     min-width: 480px;
                     margin: 0 auto;
+                    color: white;
+            }
+            .container {
+                background-color: teal;
+
+                margin-top: 80px;
+                padding: 30px;
+                height: 325px;
             }
             .lastResult {
                 color: white;
@@ -26,6 +35,7 @@
         </style>
     </head>
     <body>
+        <div class="container">
         <h1>Jogo: Adivinhe o Número</h1>
         <p>Nós selecionamos um número aleatório entre 1 e 100. Veja se consegue adivinhar em 10 chances ou menos. Nós lhe diremos se seu palpite foi muito alto ou muito baixo.</p>
 
@@ -35,10 +45,11 @@
        </div>
 <div class="resultadoParas">
   <p class="palpites"></p>
+  <p class="numeroChances"></p>
   <p class="ultimoResultado"></p>
   <p class="baixoOuAlto"></p>
 </div>
-
+</div>
     </body>
     <script>
 
@@ -48,11 +59,13 @@
         var envioPalpite = document.querySelector('.envioPalpite'); // botao que envia cada numero dentro ^
 
         var palpites = document.querySelector('.palpites');
+        var numeroChances = document.querySelector('.numeroChances');
         var ultimoResultado = document.querySelector('.ultimoResultado');
         var baixoOuAlto = document.querySelector('.baixoOuAlto');
 
         var contagemPalpites = 1; //contador dos palpites, se chegar a 10 avisa ao jogador que ele perdeu
         var botaoReinicio;
+        var chances = 9;
 
         // funcoes do jogo
         function conferePalpite(){
@@ -62,6 +75,7 @@
             }
 
             palpites.textContent += palpiteUsuario + ' '; //adiciona o ultimo palpite do usuario e um space
+            numeroChances.textContent = 'Chances disponíveis: ' + chances;
 
             if (palpiteUsuario === numeroAleatorio) {
                 ultimoResultado.textContent = 'Parabéns! Você acertou!';
@@ -83,7 +97,7 @@
                 }
             
             }
-
+            chances--;
             contagemPalpites++;
             campoPalpite.value = '';
             campoPalpite.focus();
