@@ -48,10 +48,12 @@
   <p class="numeroChances"></p>
   <p class="ultimoResultado"></p>
   <p class="baixoOuAlto"></p>
+
 </div>
 </div>
     </body>
     <script>
+        var container = document.querySelector('.container');
 
         var numeroAleatorio= Math.floor(Math.random() * 100) + 1; //gera um numero aleatorio de 1 a 100
 
@@ -80,11 +82,11 @@
             if (palpiteUsuario === numeroAleatorio) {
                 ultimoResultado.textContent = 'Parabéns! Você acertou!';
                 ultimoResultado.style.backgroundColor = 'green';
-                //configFimDeJogo();
+                configFimDeJogo();
             } else if (contagemPalpites === 10){
                 ultimoResultado.textContent = '!!!GAME OVER!!!';
                 baixoOuAlto.textContent = '';
-                //configFimDeJogo();
+                configFimDeJogo();
             } else {
                 ultimoResultado.textContent = 'Errou!!!';
                 ultimoResultado.style.backgroundColor = 'red';
@@ -106,5 +108,31 @@
     
         envioPalpite.addEventListener('click', conferePalpite);    
     
+        function configFimDeJogo() {
+                campoPalpite.disabled = true;
+                envioPalpite.disabled = true;
+                botaoReinicio = document.createElement('button');
+                botaoReinicio.textContent = 'Iniciar novo jogo';
+                document.body.appendChild(botaoReinicio);
+                botaoReinicio.addEventListener('click', reiniciarJogo);
+            }
+        function reiniciarJogo(){
+            chances = 9;
+            contagemPalpites = 1;
+            var reiniciarParas = document.querySelectorAll('.resultadoParas p');
+            for(var i = 0; i < reiniciarParas.length; i++) {
+                reiniciarParas[i].textContent = '';
+            }
+            botaoReinicio.parentNode.removeChild(botaoReinicio);
+
+            campoPalpite.disabled = false;
+            envioPalpite.disabled = false;
+            campoPalpite.value = '';
+            campoPalpite.focus();
+            
+            ultimoResultado.style.backgroundColor = 'white';
+
+            numeroAleatorio = Math.floor(Math.random() * 100) + 1;
+        }
     </script>
 </html>
